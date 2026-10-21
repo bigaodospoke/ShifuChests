@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "shifuchests:block/normal_chest"
+    },
+    "facing=east": {
+      "model": "shifuchests:block/normal_chest",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "shifuchests:block/normal_chest",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "shifuchests:block/normal_chest",
+      "y": 270
+    }
+  }
+}

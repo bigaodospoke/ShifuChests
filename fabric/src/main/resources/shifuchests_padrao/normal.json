@@ -1,0 +1,22 @@
+{
+  "nome": "Baú Normal",
+  "chance_shiny": 0.01,
+  "nivel_padrao": "5-15",
+  "pago": false,
+  "recompensas": [
+    { "pokemon": "bulbasaur", "peso": 10 },
+    { "pokemon": "charmander", "peso": 10 },
+    { "pokemon": "squirtle", "peso": 10 },
+    { "pokemon": "pikachu", "peso": 8 },
+    { "pokemon": "growlithe", "peso": 8 },
+    { "pokemon": "eevee", "peso": 6 },
+    { "pokemon": "abra", "peso": 6 },
+    { "pokemon": "gastly", "peso": 6 },
+    { "pokemon": "dratini", "nivel": 10, "peso": 2, "raridade": "epico" },
+    { "item": "cobblemon:poke_ball", "quantidade": 10, "peso": 15 },
+    { "item": "cobblemon:great_ball", "quantidade": 5, "peso": 10 },
+    { "item": "cobblemon:potion", "quantidade": 5, "peso": 10 },
+    { "item": "cobblemon:rare_candy", "quantidade": 1, "peso": 5, "raridade": "raro" },
+    { "comando": "xp add {jogador} 200 points", "nome": "&a200 de XP", "icone": "minecraft:experience_bottle", "peso": 8 }
+  ]
+}

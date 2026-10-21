@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "shifuchests",
+  "version": "${version}",
+  "name": "Shifu Chests",
+  "description": "Caixas com chave que sorteiam Pokémon e itens numa roleta animada, usando os baús dourados do Cobblemon.",
+  "authors": ["bigao"],
+  "license": "All Rights Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.shifuchests.ShifuChests"],
+    "client": ["com.shifuchests.client.ShifuChestsClient"]
+  },
+  "mixins": [
+    { "config": "shifuchests.client.mixins.json", "environment": "client" }
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*",
+    "fabric-language-kotlin": "*",
+    "cobblemon": ">=1.7.0"
+  }
+}

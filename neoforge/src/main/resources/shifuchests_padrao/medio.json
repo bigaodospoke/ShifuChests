@@ -1,0 +1,24 @@
+{
+  "nome": "Baú Médio",
+  "chance_shiny": 0.02,
+  "nivel_padrao": "15-25",
+  "pago": false,
+  "recompensas": [
+    { "pokemon": "chikorita", "peso": 8 },
+    { "pokemon": "cyndaquil", "peso": 8 },
+    { "pokemon": "totodile", "peso": 8 },
+    { "pokemon": "treecko", "peso": 8 },
+    { "pokemon": "torchic", "peso": 8 },
+    { "pokemon": "mudkip", "peso": 8 },
+    { "pokemon": "riolu", "peso": 5 },
+    { "pokemon": "vulpix alolan", "nome": "&bVulpix de Alola", "peso": 4, "raridade": "raro" },
+    { "pokemon": "larvitar", "peso": 3, "raridade": "raro" },
+    { "pokemon": "gible", "peso": 3, "raridade": "raro" },
+    { "pokemon": "lapras", "nivel": 30, "peso": 1.5, "raridade": "epico" },
+    { "pokemon": "snorlax", "nivel": 30, "peso": 1.5, "raridade": "epico" },
+    { "item": "cobblemon:ultra_ball", "quantidade": 5, "peso": 10 },
+    { "item": "cobblemon:rare_candy", "quantidade": 3, "peso": 8 },
+    { "item": "cobblemon:ability_capsule", "quantidade": 1, "peso": 3, "raridade": "raro" },
+    { "comando": "xp add {jogador} 5 levels", "nome": "&a5 níveis de XP", "icone": "minecraft:experience_bottle", "peso": 6 }
+  ]
+}

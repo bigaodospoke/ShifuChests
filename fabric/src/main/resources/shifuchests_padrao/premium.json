@@ -1,0 +1,24 @@
+{
+  "nome": "Baú Premium",
+  "chance_shiny": 0.05,
+  "nivel_padrao": "25-40",
+  "pago": false,
+  "recompensas": [
+    { "pokemon": "charizard", "peso": 6 },
+    { "pokemon": "gengar", "peso": 6 },
+    { "pokemon": "lucario", "peso": 6 },
+    { "pokemon": "dragonite", "peso": 4, "raridade": "epico" },
+    { "pokemon": "tyranitar", "peso": 4, "raridade": "epico" },
+    { "pokemon": "garchomp", "peso": 4, "raridade": "epico" },
+    { "pokemon": "metagross", "peso": 4, "raridade": "epico" },
+    { "pokemon": "eevee shiny=yes", "nome": "&dEevee Shiny", "nivel": 20, "peso": 2, "raridade": "lendario" },
+    { "pokemon": "articuno", "nivel": 50, "peso": 1, "raridade": "lendario" },
+    { "pokemon": "zapdos", "nivel": 50, "peso": 1, "raridade": "lendario" },
+    { "pokemon": "moltres", "nivel": 50, "peso": 1, "raridade": "lendario" },
+    { "pokemon": "mewtwo", "nivel": 70, "peso": 0.25, "raridade": "mitico" },
+    { "item": "cobblemon:ultra_ball", "quantidade": 16, "peso": 12 },
+    { "item": "cobblemon:rare_candy", "quantidade": 10, "peso": 10 },
+    { "item": "cobblemon:ability_patch", "quantidade": 1, "peso": 3, "raridade": "epico" },
+    { "item": "cobblemon:master_ball", "quantidade": 1, "peso": 0.75, "raridade": "lendario" }
+  ]
+}

@@ -1,0 +1,50 @@
+plugins {
+    id 'fabric-loom' version '1.17.21'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    maven { name = 'Cobblemon'; url = 'https://maven.impactdev.net/repository/development/' }
+    maven { name = 'ParchmentMC'; url = 'https://maven.parchmentmc.org' }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${project.minecraft_version}:${project.parchment_version}@zip")
+    }
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    // Cobblemon e o Kotlin que ele exige (os dois ja estao no modpack do servidor)
+    modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
+    modImplementation("com.cobblemon:fabric:${project.cobblemon_version}") {
+        transitive = false
+    }
+    // So para testar no servidor de desenvolvimento (gradlew runServer): mods do Eclipse cujos itens as caixas usam.
+    // Coloque os .jar em libs-teste/ (a pasta nao vai para o jar do mod).
+    modRuntimeOnly fileTree(dir: "libs-teste", include: "*.jar")
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+    it.options.encoding = 'UTF-8'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}

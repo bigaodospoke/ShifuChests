@@ -1,0 +1,120 @@
+=====================================================================
+  SHIFU CHESTS (Fabric) - COMO CONFIGURAR
+  (este arquivo e recriado a cada inicio do servidor; nao edite ele)
+=====================================================================
+
+Cada arquivo .json desta pasta (menos geral.json) e uma CAIXA. O nome do
+arquivo e o id usado nos comandos: miticos.json -> caixa "miticos".
+Use so letras minusculas, numeros e _ no nome. Subpastas nao sao lidas.
+
+Depois de editar, use /baus recarregar no jogo (nao precisa reiniciar).
+Se algo estiver errado, o comando mostra o aviso e a linha e ignorada.
+
+
+---------------------------------------------------------------------
+ 1. COLOCAR UMA CAIXA NO MUNDO
+---------------------------------------------------------------------
+
+  A caixa e um bloco qualquer marcado pelo comando. O ideal e o BAU
+  DOURADO do Cobblemon (gilded chest, 7 cores): a tampa dele abre durante
+  a roleta, e ele treme, pula e solta o feixe de luz.
+
+  1. Coloque o bau dourado onde quiser.
+  2. Olhe para ele e use:  /baus definir <caixa>
+  3. Pronto. Clique com a chave na mao: roleta. Sem chave: previa.
+
+  /baus desmarcar    olhando para a caixa, ela volta a ser um bloco normal
+  /baus lugares      lista onde estao todas as caixas (clique para ir)
+  So um administrador no criativo consegue quebrar uma caixa.
+
+
+---------------------------------------------------------------------
+ 2. COMANDOS (precisa ser operador)
+---------------------------------------------------------------------
+
+  /baus chave <jogador> <caixa> [quantidade]   da chaves
+  /baus adicionar <caixa> pokemon <peso> <raridade> <pokemon>
+      Ex.: /baus adicionar miticos pokemon 1 mitico mew
+  /baus adicionar <caixa> item <peso> <raridade>
+      Adiciona o item que esta NA SUA MAO (com quantidade, encantamentos...).
+  /baus listar <caixa>          premios com o numero e a chance
+  /baus remover <caixa> <numero>
+  /baus recarregar              le os arquivos de novo
+  /baus testar <caixa>          gira a roleta sem gastar chave e sem ganhar
+  /baus girar <jogador> <caixa> abre uma roleta de verdade para o jogador
+  /baus tipos                   lista todas as caixas
+  /baus previa <caixa>          qualquer jogador: mostra os premios
+
+  /shifuchests funciona igual ao /baus.
+  <raridade> = auto, comum, incomum, raro, epico, lendario ou mitico
+
+
+---------------------------------------------------------------------
+ 3. O ARQUIVO DA CAIXA
+---------------------------------------------------------------------
+
+{
+  "nome": "Caixa de Miticos",       <- nome mostrado (aceita cores: "&6Caixa")
+  "cor": "#C77DFF",                 <- cor da caixa (textos, roleta, efeitos)
+  "chave": "hancik:lendary_key",    <- item usado como chave (qualquer item)
+  "chave_pebbles": "Caixa de Miticos", <- (opcional) chaves antigas do Pebbles
+                                       Crates desta caixa tambem abrem
+  "pago": true,                     <- chave vendida (veja a secao 5)
+  "chance_shiny": 0,                <- 0.05 = 5% de cada Pokemon vir shiny
+  "nivel_padrao": "25-40",          <- (opcional) nivel dos Pokemon
+  "ivs_perfeitos": 3,               <- (opcional) minimo de IVs 31 de cada Pokemon
+                                       (sorteados entre os 6; 6 = todos perfeitos)
+  "recompensas": [ ... uma linha por premio, separadas por virgula ... ]
+}
+
+Cada premio tem um "peso". A chance e: peso / soma de todos os pesos.
+Ex.: pesos 10, 10 e 5 -> chances 40%, 40% e 20%.
+
+POKEMON (mesmo texto do /pokegive do Cobblemon)
+  { "pokemon": "pikachu", "peso": 10 }
+  { "pokemon": "gible", "nivel": "10-20", "peso": 5, "raridade": "raro" }
+  { "pokemon": "eevee shiny=yes", "nome": "&dEevee Shiny", "peso": 1 }
+  { "pokemon": "sceptile aspect=onepiece_zoro", "nome": "Sceptile (Zoro)", "peso": 1 }
+  { "pokemon": "charizard aspect=clone", "ivs_perfeitos": 6, "peso": 1 }   <- vale so para este premio
+
+ITEM
+  { "item": "cobblemon:rare_candy", "quantidade": 3, "peso": 8 }
+  { "item": "eclipse_galaxy:plushie", "quantidade": 1, "peso": 2,
+    "componentes": { "cobblemon:pokemon_item": { "species": "cobblemon:pikachu", "aspects": [] } } }
+
+ITENS JUNTO ("com_itens", vale para POKEMON e ITEM)
+  { "item": "cobblemonarmory:charizard_armor_chestplate", "quantidade": 1,
+    "com_itens": [ { "item": "cobblemonarmory:charizard_armor_helmet", "quantidade": 1 } ],
+    "nome": "Armadura de Charizard", "peso": 2 }
+
+COMANDO
+  { "comando": "xp add {jogador} 300 points", "nome": "&a300 de XP",
+    "icone": "minecraft:experience_bottle", "peso": 5 }
+  {jogador} vira o nome do jogador e {uuid} o UUID (roda como o console).
+
+RARIDADE (opcional): comum, incomum, raro, epico, lendario, mitico
+  Define a cor do cartao, a comemoracao e o anuncio no chat. Sem ela,
+  e calculada pela chance (20% = comum ... menos de 0,2% = mitico).
+
+
+---------------------------------------------------------------------
+ 4. geral.json
+---------------------------------------------------------------------
+
+  "duracao_roleta_segundos": 7.0    quanto tempo a roleta gira (2 a 30)
+  "permitir_pular": true            ESPACO pula a animacao
+  "anunciar_no_chat": true          anuncia premios raros para o servidor
+  "raridade_minima_anuncio": "epico"
+  "anunciar_shiny": true            shiny sempre e anunciado
+  "consumir_chave_no_criativo": false
+  "namespaces_proibidos_em_baus_pagos": ["mega_showdown", "zamega"]
+
+
+---------------------------------------------------------------------
+ 5. CAIXAS COM CHAVE VENDIDA
+---------------------------------------------------------------------
+
+  Marque "pago": true na caixa cuja chave e vendida por dinheiro real.
+  Itens dos mods em "namespaces_proibidos_em_baus_pagos" ficam bloqueados
+  nela: a licenca do Mega Showdown proibe colocar o conteudo dele atras de
+  chaves de caixa vendidas. Confira tambem a EULA do Minecraft.

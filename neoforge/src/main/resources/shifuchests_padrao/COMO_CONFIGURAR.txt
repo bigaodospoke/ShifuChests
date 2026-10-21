@@ -1,0 +1,143 @@
+=====================================================================
+  SHIFU CHESTS - COMO CONFIGURAR
+  (este arquivo e recriado a cada inicio do servidor; nao edite ele)
+=====================================================================
+
+Arquivos desta pasta:
+  geral.json    -> opcoes de todos os baus
+  normal.json   -> premios do Bau Normal   (abre com a Chave Normal)
+  medio.json    -> premios do Bau Medio    (abre com a Chave Media)
+  premium.json  -> premios do Bau Premium  (abre com a Chave Premium)
+
+Depois de editar, use /baus recarregar no jogo (nao precisa reiniciar).
+Se algo estiver errado, o comando mostra o aviso e a linha e ignorada.
+
+
+---------------------------------------------------------------------
+ 1. JEITO MAIS FACIL: COMANDOS NO JOGO (precisa ser operador)
+---------------------------------------------------------------------
+
+  /baus adicionar <bau> pokemon <peso> <raridade> <pokemon>
+      Ex.: /baus adicionar premium pokemon 2 lendario charizard shiny=yes
+      Ex.: /baus adicionar normal pokemon 10 auto pikachu level=15
+
+  /baus adicionar <bau> item <peso> <raridade>
+      Adiciona o item que esta NA SUA MAO (com a quantidade, encantamentos,
+      nome customizado etc).
+      Ex.: segure 16 Ultra Balls e use /baus adicionar medio item 8 auto
+
+  /baus listar <bau>          mostra os premios com o numero e a chance
+  /baus remover <bau> <numero>
+  /baus recarregar            le os arquivos de novo
+  /baus chave <jogador> <bau> [quantidade]   da chaves
+  /baus testar <bau>          gira a roleta sem gastar chave e sem ganhar nada
+  /baus girar <jogador> <bau> abre uma roleta de verdade para o jogador
+                              (para usar em lojas, eventos, recompensas...)
+  /baus previa <bau>          qualquer jogador: mostra os premios
+
+  /shifuchests funciona igual ao /baus.
+  <bau> = normal, medio ou premium
+  <raridade> = auto, comum, incomum, raro, epico, lendario ou mitico
+
+
+---------------------------------------------------------------------
+ 2. EDITANDO O ARQUIVO DO BAU (normal.json / medio.json / premium.json)
+---------------------------------------------------------------------
+
+{
+  "nome": "Baú Premium",      <- nome mostrado (aceita cores: "&6Baú &lPremium")
+  "chance_shiny": 0.05,        <- 0.05 = 5% de chance de cada Pokemon vir shiny
+  "nivel_padrao": "25-40",     <- nivel dos Pokemon que nao definem "nivel"
+  "pago": false,               <- true se a chave for vendida (veja a secao 4)
+  "recompensas": [
+    ... uma linha por premio, separadas por virgula ...
+  ]
+}
+
+Cada premio tem um "peso". A chance e: peso / soma de todos os pesos.
+Ex.: pesos 10, 10 e 5 -> chances 40%, 40% e 20%.
+Use /baus listar para ver as chances calculadas.
+
+POKEMON
+  { "pokemon": "pikachu", "peso": 10 }
+  { "pokemon": "pikachu", "nivel": 25, "peso": 10 }
+  { "pokemon": "gible", "nivel": "10-20", "peso": 5, "raridade": "raro" }
+  { "pokemon": "eevee shiny=yes", "nome": "&dEevee Shiny", "peso": 1 }
+  { "pokemon": "vulpix alolan", "peso": 3 }
+  { "pokemon": "charizard", "chance_shiny": 0.5, "peso": 1 }
+
+  O texto de "pokemon" usa o mesmo formato do /pokegive do Cobblemon, entao
+  aceita tudo que ele aceita: shiny=yes, level=30, nature=adamant,
+  ability=..., gender=female, formas (alolan, galarian, hisuian...) etc.
+  "random" sorteia uma especie qualquer.
+
+ITEM
+  { "item": "cobblemon:rare_candy", "quantidade": 3, "peso": 8 }
+  { "item": "minecraft:diamond_sword", "quantidade": 1, "peso": 1,
+    "componentes": { "minecraft:enchantments": { "levels": { "minecraft:sharpness": 5 } } } }
+
+  Dica: e mais facil criar o item no jogo e usar /baus adicionar ... item
+
+COMANDO (dinheiro, permissao, kit de outro mod...)
+  { "comando": "xp add {jogador} 300 points", "nome": "&a300 de XP",
+    "icone": "minecraft:experience_bottle", "peso": 5 }
+  { "comando": ["give {jogador} minecraft:diamond 5", "say {jogador} e sortudo!"],
+    "nome": "5 Diamantes", "icone": "minecraft:diamond", "peso": 2 }
+
+  {jogador} vira o nome do jogador e {uuid} o UUID. Os comandos rodam
+  como o console do servidor.
+
+RARIDADE (opcional)
+  comum, incomum, raro, epico, lendario, mitico
+  Define a cor do cartao, o tamanho da comemoracao e o anuncio no chat.
+  Se nao colocar, e calculada pela chance:
+    20% ou mais = comum | 8% = incomum | 3% = raro | 1% = epico
+    0,2% = lendario | menos que isso = mitico
+
+
+---------------------------------------------------------------------
+ 3. geral.json
+---------------------------------------------------------------------
+
+  "duracao_roleta_segundos": 7.0    quanto tempo a roleta gira (2 a 30)
+  "permitir_pular": true            ESPACO pula a animacao
+  "anunciar_no_chat": true          anuncia premios raros para o servidor
+  "raridade_minima_anuncio": "epico"
+  "anunciar_shiny": true            shiny sempre e anunciado
+  "consumir_chave_no_criativo": false
+  "namespaces_proibidos_em_baus_pagos": ["mega_showdown"]
+
+
+---------------------------------------------------------------------
+ 4. BAUS COM CHAVE VENDIDA
+---------------------------------------------------------------------
+
+  Marque "pago": true no bau cuja chave e vendida por dinheiro real.
+  Itens dos mods listados em "namespaces_proibidos_em_baus_pagos" ficam
+  bloqueados nele (a licenca do Mega Showdown, por exemplo, proibe colocar
+  megapedras, cristais Z etc. atras de chaves vendidas).
+  Confira tambem as regras da EULA do Minecraft sobre vantagens pagas.
+
+
+---------------------------------------------------------------------
+ 5. CRIAR MAIS BAUS (quantos quiser)
+---------------------------------------------------------------------
+
+  Todo arquivo .json desta pasta (menos geral.json) e um bau. O nome do
+  arquivo e o id usado nos comandos: lendarios_1_2.json -> bau
+  "lendarios_1_2". Use so letras minusculas, numeros e _ no nome.
+
+  Campos novos (opcionais):
+  "visual": "premium"   <- modelo do bloco e da chave: normal, medio ou premium
+  "cor": "#FFB300"      <- cor do nome nos textos e anuncios
+
+  Depois de criar o arquivo, /baus recarregar. Para colocar no mundo:
+  /baus bloco <bau>           da o bloco ja com o tipo (e so colocar)
+  /baus definir <bau>         olhando para um bau ja colocado, muda o tipo
+  /baus chave <jogador> <bau> chave que abre so esse bau
+  /baus tipos                 lista todos os baus
+  Os comandos /baus previa, listar, adicionar, remover, testar e girar
+  aceitam qualquer bau da pasta.
+
+  Pokemon com IVs perfeitos: "min_perfect_ivs=3" no texto do pokemon
+  (ex.: "zapdos min_perfect_ivs=3 shiny=yes").

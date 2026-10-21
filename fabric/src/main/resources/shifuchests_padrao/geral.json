@@ -1,0 +1,11 @@
+{
+  "duracao_roleta_segundos": 7.0,
+  "permitir_pular": true,
+  "anunciar_no_chat": true,
+  "raridade_minima_anuncio": "epico",
+  "anunciar_shiny": true,
+  "consumir_chave_no_criativo": false,
+  "namespaces_proibidos_em_baus_pagos": [
+    "mega_showdown"
+  ]
+}

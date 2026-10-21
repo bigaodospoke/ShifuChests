@@ -1,0 +1,10 @@
+.gradle/
+build/
+run/
+out/
+*.iml
+.idea/
+
+libs-teste/
+run/
+build-log.txt

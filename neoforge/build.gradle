@@ -1,0 +1,119 @@
+plugins {
+    id 'java-library'
+    id 'idea'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = mod_id
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+// Autoteste: so roda no servidor de desenvolvimento (gradlew runSelfTest), nao vai para o jar
+sourceSets {
+    selftest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+repositories {
+    maven {
+        name = 'Cobblemon'
+        url = 'https://maven.impactdev.net/repository/development/'
+    }
+    maven {
+        name = 'KotlinForForge'
+        url = 'https://thedarkcolour.github.io/KotlinForForge/'
+        content { includeGroup 'thedarkcolour' }
+    }
+    mavenCentral()
+}
+
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+        clientSelfTest {
+            client()
+            systemProperty 'shifuchests.clientselftest', 'true'
+            programArguments.addAll '--quickPlaySingleplayer', 'Teste'
+            gameDirectory = project.file('run/clienttest')
+            sourceSet = sourceSets.selftest
+        }
+        selfTest {
+            server()
+            programArgument '--nogui'
+            systemProperty 'shifuchests.selftest', 'true'
+            gameDirectory = project.file('run/selftest')
+            sourceSet = sourceSets.selftest
+        }
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.INFO
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+            sourceSet(sourceSets.selftest)
+        }
+    }
+}
+
+dependencies {
+    // Cobblemon e o Kotlin que ele exige (os dois ja estao no modpack)
+    implementation "com.cobblemon:neoforge:${cobblemon_version}"
+    implementation "thedarkcolour:kotlinforforge-neoforge:${kotlinforforge_version}"
+}
+
+configurations {
+    selftestImplementation.extendsFrom implementation
+}
+
+neoForge.addModdingDependenciesTo(sourceSets.selftest)
+
+var generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            neo_version_range      : neo_version_range,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from 'src/main/templates'
+    into 'build/generated/sources/modMetadata'
+}
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
