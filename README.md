@@ -103,3 +103,7 @@ que abre o jogo, gira a roleta e tira os prints que estão aqui em cima.
 - Modelos e texturas dos baús e chaves da versão NeoForge: **Chests Pack**.
 - Feito pro [Cobblemon](https://cobblemon.com). Projeto de fã, sem vínculo com Cobblemon, Mojang,
   Nintendo, Game Freak ou The Pokémon Company.
+
+## Licença / License
+
+Copyright (c) 2026 Kauã Batista do Nascimento ([bigaodospoke](https://github.com/bigaodospoke)). **Todos os direitos reservados / All rights reserved.** Veja o arquivo [LICENSE](LICENSE).
